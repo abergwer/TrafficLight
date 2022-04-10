@@ -5,7 +5,9 @@ class TrafficLights {
         let trafficLights = []
         let i = 0
         while (i < 20) {
-            trafficLights.push(new TrafficLight(i))
+            trafficLights.push(new TrafficLight(i));
+            i += 1;
+
         }
     }
     getJsonFile = (id) => {
