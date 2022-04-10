@@ -1,11 +1,12 @@
 class TrafficLight {
-    constructor(maxSpeed, latitude, longitude) {
-        this.maxSpeed = maxSpeed;
+    constructor(id) {
+        this.id = id;
+        this.maxSpeed = Math.floor(Math.random()*10)*10;
         this.lat = Math.random()*100;
         this.long = Math.random()*100;
-        let time = Math.floor(Math.random() * 10);
-        this.red_time = time;
-        this.green_time = time;
+        this.time = Math.floor(Math.random() * 10);
+        this.red_time = this.time;
+        this.green_time = this.time;
         this.save_time = this.green_time;
         this.color = "green";
         this.counter = 0 //number of cars that drive in red traffic light
@@ -13,15 +14,13 @@ class TrafficLight {
 
         this.carsDriveInRed();
         this.carsDriveInThisTrafficLightSection();
+        this.changeTrafficLight();
         setInterval(() => {
             this.counter = 0;
             this.total_counter =0;
         }, 1000 * 60 * 10);
         
-        //setTimeout(() => { this.resetNumberOfCarsCounter(() => { this.counter = 0 }); }, 1000 * 60 * 10);
-        //setTimeout(() => { () => { this.total_counter = 0 }; }, 1000 * 60 * 10);
-        //this.changeTrafficLight();
-        setTimeout(() => { this.changeTrafficLight(); }, 1000)
+        //setTimeout(() => { this.changeTrafficLight(); }, 1000)
     }
     changeTrafficLight = () => {
         setInterval(() => {
@@ -73,7 +72,8 @@ class TrafficLight {
             "latitude" : this.lat,
             "longitude": this.long,
             "timer" : time,
-            "color" : this.color
+            "color" : this.color,
+            "life_time" : this.time
         }
     };
 }
@@ -91,21 +91,7 @@ change_traffic_light()
 
 let http = require('./app');
 
-const express = require('express');
-const req = require('express/lib/request');
-const app = express()
 
-// app.get("/traffic", (req, res) => {
-//     const id = req.query.id;
-//     console.log(id)
-//     res.send("Hi")
-// })
 
-app.get("/traffic", (req, res) => {
-    res.send(firstTrafficLight.getJsonFile())
-})
-
-app.listen(3000)
-
-// 
+module.exports = TrafficLight;
 // post: lat, long, timer, color;
