@@ -10,6 +10,9 @@ class TrafficLights {
         }
         this.trafficLights[0].lat = 31.979440;
         this.trafficLights[0].long = 34.7793;
+        this.trafficLights[0].time = 20;
+        this.trafficLights[0].green_time = 10;
+        this.trafficLights[0].red_time = 10;
     }
     getJsonFile = (id) => {
         return this.trafficLights[id].getJsonFile()
