@@ -4,7 +4,7 @@ class TrafficLight {
         this.maxSpeed = Math.floor(Math.random()*10)*10;
         this.lat = Math.random()*100;
         this.long = Math.random()*100;
-        this.time = Math.floor(Math.random() * 10);
+        this.time = Math.floor(Math.random() * 10) + 15;
         this.red_time = this.time;
         this.green_time = this.time;
         this.save_time = this.green_time;
