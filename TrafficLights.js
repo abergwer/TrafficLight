@@ -2,16 +2,16 @@ var TrafficLight = require('./app');
 
 class TrafficLights {
     constructor() {
-        let trafficLights = []
+        this.trafficLights = []
         let i = 0
         while (i < 20) {
-            trafficLights.push(new TrafficLight(i));
+            this.trafficLights.push(new TrafficLight(i));
             i += 1;
 
         }
     }
     getJsonFile = (id) => {
-        return trafficLights[id].getJsonFile()
+        return this.trafficLights[id].getJsonFile()
     }
 }
 let a = new TrafficLights();
