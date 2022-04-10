@@ -7,13 +7,17 @@ class TrafficLights {
         while (i < 20) {
             this.trafficLights.push(new TrafficLight(i));
             i += 1;
-
         }
+        this.trafficLights[0].lat = 31.979440;
+        this.trafficLights[0].long = 34.7793;
     }
     getJsonFile = (id) => {
         return this.trafficLights[id].getJsonFile()
     }
 }
+//temp code
+
+//end temp code
 let a = new TrafficLights();
 console.log(a.getJsonFile(1));
 
