@@ -1,21 +1,25 @@
 class TrafficLight {
-    constructor(maxSpeed, time_till_next_change, latitude, longitude) {
+    constructor(maxSpeed, latitude, longitude) {
         this.maxSpeed = maxSpeed;
-        this.time_till_next_change = time_till_next_change;
-        this.lat = latitude;
-        this.long = longitude;
-
-        this.red_time = Math.floor(Math.random() * 10);
-        this.green_time = Math.floor(Math.random() * 10);
+        this.lat = Math.random()*100;
+        this.long = Math.random()*100;
+        let time = Math.floor(Math.random() * 10);
+        this.red_time = time;
+        this.green_time = time;
         this.save_time = this.green_time;
         this.color = "green";
         this.counter = 0 //number of cars that drive in red traffic light
         this.total_counter = 0 //number of cars that drive in this traffic light section
-        console.log(this.counter)
+
         this.carsDriveInRed();
         this.carsDriveInThisTrafficLightSection();
-        setTimeout(() => { this.resetNumberOfCarsCounter(() => { this.counter = 0 }); }, 1000 * 60 * 10);
-        setTimeout(() => { () => { this.total_counter = 0 }; }, 1000 * 60 * 10);
+        setInterval(() => {
+            this.counter = 0;
+            this.total_counter =0;
+        }, 1000 * 60 * 10);
+        
+        //setTimeout(() => { this.resetNumberOfCarsCounter(() => { this.counter = 0 }); }, 1000 * 60 * 10);
+        //setTimeout(() => { () => { this.total_counter = 0 }; }, 1000 * 60 * 10);
         //this.changeTrafficLight();
         setTimeout(() => { this.changeTrafficLight(); }, 1000)
     }
@@ -62,14 +66,46 @@ class TrafficLight {
         console.log('Number of cars driving in this traffic light section ' + this.total_counter);
         console.log('the traffic light will be ' + this.color + ' for the next ' + (this.color == "green" ? this.green_time : this.red_time))
     }
+    
+    getJsonFile = () => {
+        const time = this.color == "green" ? this.green_time : this.red_time;
+        return {
+            "latitude" : this.lat,
+            "longitude": this.long,
+            "timer" : time,
+            "color" : this.color
+        }
+    };
 }
 
-const firstTrafficLight = new TrafficLight(maxSpeed = 60, time_till_next_change = 8, latitude = 56, longitude = 32)
+const firstTrafficLight = new TrafficLight(maxSpeed = 60, latitude = 56, longitude = 32)
 
 change_traffic_light = () => {
     setInterval(() => {
-        firstTrafficLight.getTrafficLightStatus()
+        firstTrafficLight.getJsonFile()
     }
         , 1000);
 }
 change_traffic_light()
+
+
+let http = require('./app');
+
+const express = require('express');
+const req = require('express/lib/request');
+const app = express()
+
+// app.get("/traffic", (req, res) => {
+//     const id = req.query.id;
+//     console.log(id)
+//     res.send("Hi")
+// })
+
+app.get("/traffic", (req, res) => {
+    res.send(firstTrafficLight.getJsonFile())
+})
+
+app.listen(3000)
+
+// 
+// post: lat, long, timer, color;
