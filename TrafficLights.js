@@ -20,7 +20,8 @@ const req = require('express/lib/request');
 const app = express()
 
 app.get("/traffic", (req, res) => {
-    res.send(firstTrafficLight.getJsonFile())
+    const id = req.query.id;
+    res.send(a.getJsonFile(id))
 })
 
 app.listen(3000)
