@@ -61,7 +61,7 @@ class TrafficLight {
     }
 
     getTrafficLightStatus = () => {
-        console.log('Number of cars driving in red light in the past 10 minutes ' + this.counter);
+        console.log('Number_of_cars_driving_in_red_light_in_the_past_10_minutes ' + this.counter);
         console.log('Number of cars driving in this traffic light section ' + this.total_counter);
         console.log('the traffic light will be ' + this.color + ' for the next ' + (this.color == "green" ? this.green_time : this.red_time))
     }
